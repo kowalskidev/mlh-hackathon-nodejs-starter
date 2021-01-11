@@ -1,15 +1,19 @@
 {
   "development": {
-    "database": "nodejs-starter-dev",
+    "database": "github",
     "host": "127.0.0.1",
     "port": 5432,
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "username": "postgres",
+    "password": "root"
   },
   "test": {
-    "database": "nodejs-starter-test",
+    "database": "github",
     "host": "127.0.0.1",
     "port": 5432,
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "username": "postgres",
+    "password": "root"
   },
   "production": {
     "use_env_variable": "DATABASE_URL"

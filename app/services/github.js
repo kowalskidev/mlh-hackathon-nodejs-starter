@@ -21,28 +21,49 @@ class GitHub {
     const params = {
       code,
       client_id: this.client_id,
-      client_secret: this.client_secret
+      client_secret: this.client_secret,
     };
 
-    const { data } = await axios.post(token_url, params, config);
-    return data.access_token;
+    try {
+      const { data } = await axios.post(token_url, params, config);
+      return data.access_token;
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async get(route_url, params = {}) {
     const url = api_url + route_url;
     params["access_token"] = this.access_token;
 
-    const response = await axios.get(url, { params });
-    return response.data;
+    const headers = {
+      Authorization: `token ${this.access_token}`,
+    };
+
+    const config = { headers: headers };
+    console.log("call 2");
+    try {
+      const response = await axios.get(url, config, params);
+      return response.data;
+    } catch (error) {
+      console.error(error.response);
+    }
   }
 
   static async get_user_from_token(access_token) {
     /* Fetch user data using the access token. */
     const url = api_url + "/user";
-    const config = { params: { access_token: access_token } };
+    const headers = {
+      Authorization: `token ${access_token}`,
+    };
+    const config = { headers: headers };
 
-    const response = await axios.get(url, config);
-    return response.data;
+    try {
+      const response = await axios.get(url, config);
+      return response.data;
+    } catch (error) {
+      console.error(error.response);
+    }
   }
 }
 
